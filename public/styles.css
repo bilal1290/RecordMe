@@ -1,0 +1,15 @@
+.container {
+    margin-top: 30px;
+}
+
+nav .brand-logo {
+    font-weight: bold;
+}
+
+table th, table td {
+    text-align: center;
+}
+
+.remove-btn {
+    margin-top: 5px;
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+
+    <!-- Materialize CSS -->
+    <style>
+        /* Body Styling */
+        body {
+            background: linear-gradient(to right, #ece9e6, #ffffff);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background: #2c3e50;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* Form Headings */
+        h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Input Fields */
+        .input-field input {
+            border-bottom: 2px solid #2c3e50 !important;
+            box-shadow: none !important;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .input-field input:focus {
+            border-bottom: 2px solid #27ae60 !important;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn.green:hover {
+            background: #1e8449;
+        }
+
+        .btn.red:hover {
+            background: #c0392b;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .input-field.col.s6 {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body class="grey lighten-3">
+
+    <!-- Navbar -->
+    <nav class="grey darken-3 white-text">
+        <div class="nav-wrapper container">
+            <a href="index.html" class="brand-logo center">Update Member Details</a>
+        </div>
+    </nav>
+
+    <!-- Edit Form -->
+    <div class="container">
+        
+        <form id="edit-form">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="name" type="text" required>
+                    <label for="name">Employee Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="role" type="text" required>
+                    <label for="role">Role</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="date" type="date" required>
+                    <label for="date">Start Date</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="rate" type="text" required>
+                    <label for="rate">Monthly Rate</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="email" type="email" required>
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row center">
+                <button type="button" id="save" class="btn green">Save Changes</button>
+                <a href="index.html" class="btn red">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Firebase SDK & App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAat9ej8Xz9i4jrEF4p9ttnBmqLyhLNKWQ",
+            authDomain: "flysecurity-790c8.firebaseapp.com",
+            databaseURL: "https://flysecurity-790c8-default-rtdb.firebaseio.com",
+            projectId: "flysecurity-790c8",
+            storageBucket: "flysecurity-790c8.appspot.com",
+            messagingSenderId: "864348312200",
+            appId: "1:864348312200:web:82c514a6edddea84cd853d",
+            measurementId: "G-S2FY7EVTEW"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        const params = new URLSearchParams(window.location.search);
+        const employeeId = params.get("id");
+
+        if (!employeeId) {
+            alert("Invalid Employee ID!");
+            window.location.href = "index.html";
+        }
+
+        const employeeRef = ref(database, `employees/${employeeId}`);
+
+        // Fetch Employee Data
+        get(employeeRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                document.getElementById("name").value = data.name;
+                document.getElementById("role").value = data.role;
+                document.getElementById("date").value = data.date;
+                document.getElementById("rate").value = data.rate;
+                document.getElementById("email").value = data.email;
+
+                // Fix Materialize labels
+                M.updateTextFields();
+            } else {
+                alert("Employee not found!");
+                window.location.href = "index.html";
+            }
+        }).catch((error) => {
+            console.error("Error fetching employee data:", error);
+        });
+
+        // Update Employee Data
+        document.getElementById("save").addEventListener("click", () => {
+            const updatedData = {
+                name: document.getElementById("name").value.trim(),
+                role: document.getElementById("role").value.trim(),
+                date: document.getElementById("date").value,
+                rate: document.getElementById("rate").value.trim(),
+                email: document.getElementById("email").value.trim()
+            };
+
+            update(employeeRef, updatedData)
+                .then(() => {
+                    alert("Employee updated successfully!");
+                    window.location.href = "index.html";
+                })
+                .catch(error => {
+                    console.error("Error updating employee:", error);
+                    alert("Failed to update employee. Check console for details.");
+                });
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
