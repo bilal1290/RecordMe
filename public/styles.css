@@ -1,15 +1,110 @@
+body {
+    background-color: #ffffff;
+}
+
 .container {
     margin-top: 30px;
 }
 
-nav .brand-logo {
+.card {
+    padding: 20px;
+    border-radius: 12px;
+}
+
+table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-small {
+    margin-right: 5px;
+}
+
+/* Modal Styling */
+.modal-content {
+    background: linear-gradient(135deg, #ffffff00, #f8f9fa00);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
+    /* Centered & prevents hidden layout */
+    text-align: left;
+}
+
+/* Header Styling */
+.modal-header {
+    font-size: 22px;
     font-weight: bold;
-}
-
-table th, table td {
+    color: #007bff;
     text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #007bff;
 }
 
-.remove-btn {
-    margin-top: 5px;
+/* List Styling */
+.collection {
+    list-style: none;
+    padding: 0;
+}
+
+.collection-item {
+    background: rgba(0, 123, 255, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease-in-out;
+}
+
+.collection-item:hover {
+    background: rgba(0, 123, 255, 0.2);
+}
+
+.info-box {
+    font-size: 18px;
+    color: #204d7a;
+    font-weight: bold;
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+.collection-item strong {
+    color: #333;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+/* Icons */
+.collection-item i {
+    color: #007bff;
+    margin-right: 5px;
+}
+
+/* Data */
+.modal-data {
+    color: #007bff;
+    font-size: 16px;
+}
+table, th, td {
+border: 0
+px solid black;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .modal-content {
+        max-width: 95%;
+        /* Better fit for smaller screens */
+    }
 }

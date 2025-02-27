@@ -78,6 +78,16 @@
             background: rgba(0, 123, 255, 0.2);
         }
 
+        .info-box {
+            font-size: 18px;
+            color: #204d7a;
+            font-weight: bold;
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
         /* Labels */
         .collection-item strong {
             color: #333;
@@ -95,10 +105,12 @@
         /* Data */
         .modal-data {
             color: #007bff;
-            font-weight: bold;
             font-size: 16px;
         }
-        
+        table, th, td {
+  border: 0
+  px solid black;
+}
 
         /* Responsive */
         @media (max-width: 500px) {
@@ -123,13 +135,12 @@
     <div class="container">
         <h3 class="center">Team Members</h3>
         <!-- Button to trigger modal -->
-        <button data-target="employee-modal" class="btn waves-effect waves-light modal-trigger">Open Employee
-            Form</button>
+        <button data-target="employee-modal" class="btn waves-effect waves-light modal-trigger">Add Member</button>
 
         <!-- Modal Structure -->
         <div id="employee-modal" class="modal">
             <div class="modal-content">
-                <h4>Add Employee</h4>
+                <h4>Add Siznam Member</h4>
                 <form id="employee-form">
                     <div class="row">
                         <div class="input-field col s6">
@@ -143,12 +154,12 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="date" type="date" required>
-                            <label for="date">Start Date</label>
+                            <input id="contact" type="text" required pattern="\d{10,15}" class="validate">
+                            <label for="contact">Contact # (10-15 Digits)</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="rate" type="text" required>
-                            <label for="rate">Monthly Rate</label>
+                            <input id="nic" type="text" required pattern="\d{13}" class="validate">
+                            <label for="nic">NIC # (13 Digits)</label>
                         </div>
                     </div>
                     <div class="row">
@@ -173,18 +184,16 @@
                     <tr>
                         <th>Name</th>
                         <th>Role</th>
-                        <th>Start Date</th>
-                        <th>Monthly Rate</th>
+                        <th>Email</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="employee-list">
                     <!-- Employees will be displayed here -->
                     <tr>
-                        <td>John Doe</td>
+                        <td>3636363737373</td>
                         <td>Software Engineer</td>
                         <td>Jan 10, 2023</td>
-                        <td>$5000</td>
                         <td>
                             <a class="btn-small green waves-effect waves-light">Edit</a>
                             <a class="btn-small red waves-effect waves-light">Delete</a>
@@ -199,36 +208,87 @@
     <!-- Employee Details Modal -->
     <div id="view-member-dialog" class="modal">
         <div class="modal-content">
-            <h4 class="modal-header">🚀 Person Details</h4>
-            <ul class="collection">
-                <li class="collection-item">
-                    <strong><i class="fas fa-user"></i> Name:</strong>
-                    <span id="modal-name" class="modal-data">John Doe</span>
-                </li>
-                <li class="collection-item">
-                    <strong><i class="fas fa-briefcase"></i> Role:</strong>
-                    <span id="modal-role" class="modal-data">Software Engineer</span>
-                </li>
-                <li class="collection-item">
-                    <strong><i class="fas fa-calendar-alt"></i> Start Date:</strong>
-                    <span id="modal-date" class="modal-data">Jan 10, 2023</span>
-                </li>
-                <li class="collection-item">
-                    <strong><i class="fas fa-dollar-sign"></i> Monthly Rate:</strong>
-                    <span id="modal-rate" class="modal-data">$5,000</span>
-                </li>
-                <li class="collection-item">
-                    <strong><i class="fas fa-envelope"></i> Email:</strong>
-                    <span id="modal-email" class="modal-data">john.doe@example.com</span>
-                </li>
-                <li>
-                    <div class="modal-footer">
-                        <a href="#" class="modal-close btn grey">Close</a>
-                    </div>
-                </li>
+            <h4 class="modal-header" id="modal-name" > 
+            </h4>
+            <div class="info-box">
+                 <span id="modal-role" class="modal-data"></span>
+                <p><span id="modal-email" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"></span></p>
+            </div>
+            
+                <table>
+                    <tr>
+                        <td style="width: 50%;">
+                            <strong>⭐ Role:</strong>
+                            <div class="info-box">
+                                <span id="modal-contact" class="modal-data"></span>
+                            </div>
+                        </td>
+                        <td >
+                            <strong>☎️ Contact:</strong>
+                            <div class="info-box">
+                                <span id="modal-nic" class="modal-data"></span>
+                            </div>
+                        </td>
+                    </tr>
+                        
+                    <tr>
+                        <td style="width: 50%;">
+                            <strong> Emergency Contact:</strong>
+                            <div class="info-box">
+                            
+                                <span id="modal-emergency-contact" class="modal-data"></span>
+                                <span id="modal-relation" class="modal-data"></span>
 
+                            </div>
+                        </td>
+                        <td>
+                            <strong>🎂 Date of Birth</strong>
+                            <div class="info-box">
+                                <span id="modal-dob" class="modal-data"></span>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+                <ul class="collection">
+                <li class="collection-item">
+                    <strong><i class="fas fa-map-marker-alt"></i> Address:</strong>
+                    <span id="modal-address" class="modal-data"></span>
+                </li>
+                <li class="collection-item">
+                    <strong><i class="fas fa-calendar-alt"></i> DOB:</strong>
+                    <span id="modal-dob" class="modal-data"></span>
+                </li>
+                <li class="collection-item">
+                    <strong><i class="fas fa-hand-holding-heart"></i> Blood Group:</strong>
+                    <span id="modal-blood-group" class="modal-data"></span>
+                </li>
+                <li class="collection-item">
+                    <strong><i class="fas fa-calendar-check"></i> Joining Date:</strong>
+                    <span id="modal-joining-date" class="modal-data"></span>
+                </li>
+                <li class="collection-item">
+                    <strong><i class="fas fa-calendar-times"></i> Exiting Date:</strong>
+                    <span id="modal-exiting-date" class="modal-data"></span>
+                </li>
+                <li class="collection-item">
+                    <strong><i class="fas fa-university"></i> Bank Name:</strong>
+                    <span id="modal-bank-name" class="modal-data"></span>
+                </li>
+                <li class="collection-item">
+                    <strong><i class="fas fa-credit-card"></i> Bank Account:</strong>
+                    <span id="modal-bank-account" class="modal-data"></span>
+                </li>
+                <li class="collection-item">
+                    <strong><i class="fas fa-gavel"></i> Criminal Record:</strong>
+                    <span id="modal-criminal-record" class="modal-data"></span>
+                </li>
             </ul>
         </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-close btn grey">Close</a>
+        </div>
+    </div>
 
     </div>
 
@@ -236,8 +296,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getDatabase, ref, set, push, onValue, remove, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-        
-        const firebaseCon= {
+
+        const firebaseCon = {
             apiKey: "AIzaSyAat9ej8Xz9i4jrEF4p9ttnBmqLyhLNKWQ",
             authDomain: "flysecurity-790c8.firebaseapp.com",
             databaseURL: "https://flysecurity-790c8-default-rtdb.firebaseio.com",
@@ -255,17 +315,17 @@
         function addEmployee() {
             const name = document.getElementById("name").value.trim();
             const role = document.getElementById("role").value.trim();
-            const date = document.getElementById("date").value;
-            const rate = document.getElementById("rate").value.trim();
+            const contact = document.getElementById("contact").value;
+            const nic = document.getElementById("nic").value.trim();
             const email = document.getElementById("email").value.trim();
 
-            if (!name || !role || !date || !rate || !email) {
+            if (!name || !role || !contact || !nic || !email) {
                 alert("All fields are required!");
                 return;
             }
 
             const newEmployeeRef = push(employeesRef);
-            set(newEmployeeRef, { name, role, date, rate, email })
+            set(newEmployeeRef, { name, role, contact, nic, email })
                 .then(() => {
                     alert("Employee added successfully!");
                     document.getElementById("employee-form").reset();
@@ -288,8 +348,7 @@
                         <tr onclick="viewEmployee('${employeeKey}')" style="cursor:pointer">
                             <td>${employee.name}</td>
                             <td>${employee.role}</td>
-                            <td>${employee.date}</td>
-                            <td>${employee.rate}</td>
+                            <td>${employee.email}</td>
                             <td>
                                 <a href="edit.html?id=${employeeKey}" class="btn blue">Edit</a>
                                 <button class="btn red remove-btn" data-key="${employeeKey}">Delete</button>
@@ -309,9 +368,14 @@
                     const data = snapshot.val();
                     document.getElementById("modal-name").textContent = data.name;
                     document.getElementById("modal-role").textContent = data.role;
-                    document.getElementById("modal-date").textContent = data.date;
-                    document.getElementById("modal-rate").textContent = data.rate;
+                    document.getElementById("modal-contact").textContent = data.contact;
+                    document.getElementById("modal-nic").textContent = data.nic;
                     document.getElementById("modal-email").textContent = data.email;
+                    document.getElementById("modal-address").textContent = data.address;
+                    document.getElementById("modal-dob").textContent = data.dob;
+                    document.getElementById("modal-blood-group").textContent = data.blood_group;
+                    document.getElementById("modal-emergency-contact").textContent = data.emergency_contact;
+                    document.getElementById("modal-relation").textContent ="("+ data.relation+")";
 
                     const modal = document.querySelector("#view-member-dialog");
                     M.Modal.getInstance(modal).open();

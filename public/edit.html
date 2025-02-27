@@ -7,36 +7,48 @@
     <title>Edit Employee</title>
 
     <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
-        /* Body Styling */
         body {
-            background: linear-gradient(to right, #ece9e6, #ffffff);
+            background: linear-gradient(to right, #dfe9f3, #ffffff);
             font-family: 'Roboto', sans-serif;
         }
 
-        /* Navbar Styling */
         nav {
-            background: #2c3e50;
+            background: #34495e;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .brand-logo {
-            font-size: 22px;
-            font-weight: bold;
+        .container {
+            margin-top: 30px;
         }
 
-        /* Form Headings */
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
         h3 {
             font-size: 24px;
             font-weight: bold;
             color: #2c3e50;
+            text-align: center;
             margin-bottom: 20px;
         }
 
-        /* Input Fields */
+        .info-box {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
         .input-field input {
             border-bottom: 2px solid #2c3e50 !important;
-            box-shadow: none !important;
             transition: all 0.3s ease-in-out;
         }
 
@@ -44,9 +56,7 @@
             border-bottom: 2px solid #27ae60 !important;
         }
 
-        /* Buttons */
         .btn {
-            padding: 10px 20px;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease-in-out;
@@ -59,68 +69,107 @@
         .btn.red:hover {
             background: #c0392b;
         }
-
-        /* Responsive Adjustments */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-
-            .input-field.col.s6 {
-                width: 100%;
-            }
-        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 
 <body class="grey lighten-3">
-
-    <!-- Navbar -->
     <nav class="grey darken-3 white-text">
         <div class="nav-wrapper container">
             <a href="index.html" class="brand-logo center">Update Member Details</a>
         </div>
     </nav>
 
-    <!-- Edit Form -->
     <div class="container">
-        
-        <form id="edit-form">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="name" type="text" required>
-                    <label for="name">Employee Name</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="role" type="text" required>
-                    <label for="role">Role</label>
-                </div>
+        <div class="card">
+            <h3>Edit Employee</h3>
+            <div class="info-box">
+                <p><span id="display-name"></span></p>
+                <p><strong>Email: </strong> <span id="display-email"></span></p>
             </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="date" type="date" required>
-                    <label for="date">Start Date</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="rate" type="text" required>
-                    <label for="rate">Monthly Rate</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="email" type="email" required>
-                    <label for="email">Email</label>
-                </div>
-            </div>
-            <div class="row center">
-                <button type="button" id="save" class="btn green">Save Changes</button>
-                <a href="index.html" class="btn red">Cancel</a>
-            </div>
-        </form>
-    </div>
 
-    <!-- Firebase SDK & App Logic -->
+            <form id="edit-form">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="role" type="text" required>
+                        <label for="role">Role</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="contact" type="number" required>
+                        <label for="contact">Contact</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="nic" type="text" disabled>
+                        <label for="nic">CNIC</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="joining_date" type="date" required>
+                        <label for="joining_date">Joining Date</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="exiting_date" type="date">
+                        <label for="exiting_date">Exiting Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="dob" type="date" required>
+                        <label for="dob">Date of Birth</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="address" type="text" required>
+                        <label for="address">Address</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="emergency_contact" type="number" required>
+                        <label for="emergency_contact">Emergency Contact</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="relation" type="text" required>
+                        <label for="relation">Relation</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="bank_account" type="text" required>
+                        <label for="bank_account">Bank Account</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="account_title" type="text" required>
+                        <label for="account_title">Account Title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="bank_name" type="text" required>
+                        <label for="bank_name">Bank Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="blood_group" type="text">
+                        <label for="blood_group">Blood Group</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="criminal_record" type="text">
+                        <label for="criminal_record">Criminal Record</label>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <button type="button" id="save" class="btn green">Save</button>
+        <a href="index.html" class="btn red">Cancel</a>
+    </div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
@@ -149,17 +198,25 @@
 
         const employeeRef = ref(database, `employees/${employeeId}`);
 
-        // Fetch Employee Data
         get(employeeRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
-                document.getElementById("name").value = data.name;
+                document.getElementById("display-name").textContent = data.name;
+                document.getElementById("display-email").textContent = data.email;
                 document.getElementById("role").value = data.role;
-                document.getElementById("date").value = data.date;
-                document.getElementById("rate").value = data.rate;
-                document.getElementById("email").value = data.email;
-
-                // Fix Materialize labels
+                document.getElementById("nic").value = data.nic;
+                document.getElementById("joining_date").value = data.joining_date;
+                document.getElementById("exiting_date").value = data.exiting_date;
+                document.getElementById("dob").value = data.dob;
+                document.getElementById("contact").value = data.contact;
+                document.getElementById("address").value = data.address;
+                document.getElementById("emergency_contact").value = data.emergency_contact;
+                document.getElementById("relation").value = data.relation;
+                document.getElementById("bank_account").value = data.bank_account;
+                document.getElementById("account_title").value = data.account_title;
+                document.getElementById("bank_name").value = data.bank_name;
+                document.getElementById("blood_group").value = data.blood_group;
+                document.getElementById("criminal_record").value = data.criminal_record;
                 M.updateTextFields();
             } else {
                 alert("Employee not found!");
@@ -169,14 +226,21 @@
             console.error("Error fetching employee data:", error);
         });
 
-        // Update Employee Data
         document.getElementById("save").addEventListener("click", () => {
             const updatedData = {
-                name: document.getElementById("name").value.trim(),
-                role: document.getElementById("role").value.trim(),
-                date: document.getElementById("date").value,
-                rate: document.getElementById("rate").value.trim(),
-                email: document.getElementById("email").value.trim()
+                contact: document.getElementById("contact").value,
+                role: document.getElementById("role").value,
+                joining_date: document.getElementById("joining_date").value,
+                exiting_date: document.getElementById("exiting_date").value,
+                dob: document.getElementById("dob").value,
+                address: document.getElementById("address").value.trim(),
+                emergency_contact: document.getElementById("emergency_contact").value,
+                relation: document.getElementById("relation").value.trim(),
+                bank_account: document.getElementById("bank_account").value.trim(),
+                account_title: document.getElementById("account_title").value.trim(),
+                blood_group: document.getElementById("blood_group").value.trim(),
+                bank_name: document.getElementById("bank_name").value.trim(),
+                criminal_record: document.getElementById("criminal_record").value.trim()
             };
 
             update(employeeRef, updatedData)
