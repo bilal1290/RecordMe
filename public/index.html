@@ -8,134 +8,25 @@
 
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <style>
-        body {
-            background-color: #f5f5f5;
-        }
-
-        .container {
-            margin-top: 30px;
-        }
-
-        .card {
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        table {
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        thead {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .btn-small {
-            margin-right: 5px;
-        }
-
-        /* Modal Styling */
-        .modal-content {
-            background: linear-gradient(135deg, #ffffff00, #f8f9fa00);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
-            /* Centered & prevents hidden layout */
-            text-align: left;
-        }
-
-        /* Header Styling */
-        .modal-header {
-            font-size: 22px;
-            font-weight: bold;
-            color: #007bff;
-            text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #007bff;
-        }
-
-        /* List Styling */
-        .collection {
-            list-style: none;
-            padding: 0;
-        }
-
-        .collection-item {
-            background: rgba(0, 123, 255, 0.1);
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 500;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s ease-in-out;
-        }
-
-        .collection-item:hover {
-            background: rgba(0, 123, 255, 0.2);
-        }
-
-        .info-box {
-            font-size: 18px;
-            color: #204d7a;
-            font-weight: bold;
-            background: #ecf0f1;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        /* Labels */
-        .collection-item strong {
-            color: #333;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Icons */
-        .collection-item i {
-            color: #007bff;
-            margin-right: 5px;
-        }
-
-        /* Data */
-        .modal-data {
-            color: #007bff;
-            font-size: 16px;
-        }
-        table, th, td {
-  border: 0
-  px solid black;
-}
-
-        /* Responsive */
-        @media (max-width: 500px) {
-            .modal-content {
-                max-width: 95%;
-                /* Better fit for smaller screens */
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="grey lighten-3">
+<body>
 
     <!-- Navbar -->
-    <nav class="grey darken-3 white-text">
+    <nav class="white-text" style="background-color: #007bff;">
+
+        <a href="#" class="brand-logo center">Siznam & Co</a>
         <div class="nav-wrapper container">
-            <a href="#" class="brand-logo center">Siznam & Co</a>
+            <!-- Button to trigger modal -->
+        <button data-target="employee-modal" class="btn waves-effect waves-light modal-trigger">Add Member</button>
         </div>
+        
     </nav>
 
     <!-- Employee Form -->
     <div class="container">
-        <h3 class="center">Team Members</h3>
-        <!-- Button to trigger modal -->
-        <button data-target="employee-modal" class="btn waves-effect waves-light modal-trigger">Add Member</button>
+        
 
         <!-- Modal Structure -->
         <div id="employee-modal" class="modal">
@@ -178,7 +69,8 @@
 
     <div class="container">
         <div class="card">
-            <h4 class="center blue-text">Employee List</h4>
+
+        <h4 class="center">Team Members</h4>
             <table class="striped highlight centered responsive-table">
                 <thead>
                     <tr>
@@ -293,113 +185,7 @@
     </div>
 
     <!-- Firebase SDK & Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, set, push, onValue, remove, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
-        const firebaseCon = {
-            apiKey: "AIzaSyAat9ej8Xz9i4jrEF4p9ttnBmqLyhLNKWQ",
-            authDomain: "flysecurity-790c8.firebaseapp.com",
-            databaseURL: "https://flysecurity-790c8-default-rtdb.firebaseio.com",
-            projectId: "flysecurity-790c8",
-            storageBucket: "flysecurity-790c8.appspot.com",
-            messagingSenderId: "864348312200",
-            appId: "1:864348312200:web:82c514a6edddea84cd853d",
-            measurementId: "G-S2FY7EVTEW"
-        };
-
-        const app = initializeApp(firebaseCon);
-        const database = getDatabase(app);
-        const employeesRef = ref(database, "employees");
-
-        function addEmployee() {
-            const name = document.getElementById("name").value.trim();
-            const role = document.getElementById("role").value.trim();
-            const contact = document.getElementById("contact").value;
-            const nic = document.getElementById("nic").value.trim();
-            const email = document.getElementById("email").value.trim();
-
-            if (!name || !role || !contact || !nic || !email) {
-                alert("All fields are required!");
-                return;
-            }
-
-            const newEmployeeRef = push(employeesRef);
-            set(newEmployeeRef, { name, role, contact, nic, email })
-                .then(() => {
-                    alert("Employee added successfully!");
-                    document.getElementById("employee-form").reset();
-                })
-                .catch(error => {
-                    alert("Error adding employee.");
-                });
-        }
-
-        function fetchEmployees() {
-            onValue(employeesRef, (snapshot) => {
-                const employeeList = document.getElementById("employee-list");
-                employeeList.innerHTML = "";
-
-                snapshot.forEach((childSnapshot) => {
-                    const employee = childSnapshot.val();
-                    const employeeKey = childSnapshot.key;
-
-                    employeeList.innerHTML += `
-                        <tr onclick="viewEmployee('${employeeKey}')" style="cursor:pointer">
-                            <td>${employee.name}</td>
-                            <td>${employee.role}</td>
-                            <td>${employee.email}</td>
-                            <td>
-                                <a href="edit.html?id=${employeeKey}" class="btn blue">Edit</a>
-                                <button class="btn red remove-btn" data-key="${employeeKey}">Delete</button>
-                            </td>
-                        </tr>
-                    `;
-                });
-
-                attachDeleteEvents();
-            });
-        }
-
-        window.viewEmployee = (id) => {
-            const employeeRef = ref(database, `employees/${id}`);
-            get(employeeRef).then((snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    document.getElementById("modal-name").textContent = data.name;
-                    document.getElementById("modal-role").textContent = data.role;
-                    document.getElementById("modal-contact").textContent = data.contact;
-                    document.getElementById("modal-nic").textContent = data.nic;
-                    document.getElementById("modal-email").textContent = data.email;
-                    document.getElementById("modal-address").textContent = data.address;
-                    document.getElementById("modal-dob").textContent = data.dob;
-                    document.getElementById("modal-blood-group").textContent = data.blood_group;
-                    document.getElementById("modal-emergency-contact").textContent = data.emergency_contact;
-                    document.getElementById("modal-relation").textContent ="("+ data.relation+")";
-
-                    const modal = document.querySelector("#view-member-dialog");
-                    M.Modal.getInstance(modal).open();
-                }
-            });
-        };
-
-        function attachDeleteEvents() {
-            document.querySelectorAll(".remove-btn").forEach(button => {
-                button.addEventListener("click", async (event) => {
-                    event.stopPropagation();
-                    await remove(ref(database, `employees/${button.dataset.key}`));
-                    fetchEmployees();
-                });
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchEmployees();
-            M.Modal.init(document.querySelectorAll(".modal"));
-            document.getElementById("addnewuser").addEventListener("click", addEmployee);
-        });
-    </script>
-
+    <script type="module" src="config/app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
