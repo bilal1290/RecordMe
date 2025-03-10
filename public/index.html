@@ -59,6 +59,12 @@
                             <label for="email">Email</label>
                         </div>
                     </div>
+                    <div>
+                        <input type="file" id="fileInput">
+                        <button id="uploadImage">Upload</button>
+                        <p id="status"></p>
+                        <img id="uploadedImage" width="200" style="display: none;">
+                    </div>
                     <div class="row center">
                         <button type="submit" id="addnewuser" class="btn waves-effect waves-light">Add Employee</button>
                     </div>
@@ -67,34 +73,47 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="card">
-
+<div class="container">
+    <div class="card">
         <h4 class="center">Team Members</h4>
-            <table class="striped highlight centered responsive-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="employee-list">
-                    <!-- Employees will be displayed here -->
-                    <tr>
-                        <td>3636363737373</td>
-                        <td>Software Engineer</td>
-                        <td>Jan 10, 2023</td>
-                        <td>
-                            <a class="btn-small green waves-effect waves-light">Edit</a>
-                            <a class="btn-small red waves-effect waves-light">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search Member by Name">
         </div>
+
+        <table class="striped highlight centered responsive-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="employee-list">
+                <tr>
+                    <td>John Doe</td>
+                    <td>Software Engineer</td>
+                    <td>johndoe@example.com</td>
+                    <td>
+                        <a class="btn-small green waves-effect waves-light">Edit</a>
+                        <a class="btn-small red waves-effect waves-light">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>Project Manager</td>
+                    <td>janesmith@example.com</td>
+                    <td>
+                        <a class="btn-small green waves-effect waves-light">Edit</a>
+                        <a class="btn-small red waves-effect waves-light">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
 
     <!-- Employee Details Modal -->
@@ -110,13 +129,13 @@
                 <table>
                     <tr>
                         <td style="width: 50%;">
-                            <strong>⭐ Role:</strong>
+                            <strong> ☎️ Contact:</strong>
                             <div class="info-box">
                                 <span id="modal-contact" class="modal-data"></span>
                             </div>
                         </td>
                         <td >
-                            <strong>☎️ Contact:</strong>
+                            <strong>CNIC:</strong>
                             <div class="info-box">
                                 <span id="modal-nic" class="modal-data"></span>
                             </div>
@@ -185,6 +204,8 @@
     </div>
 
     <!-- Firebase SDK & Logic -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js"></script>
     <script type="module" src="config/app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

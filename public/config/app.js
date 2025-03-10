@@ -38,7 +38,19 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
                     alert("Error adding employee.");
                 });
         }
-
+        function searchTable() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let table = document.getElementById("employee-list");
+            let rows = table.getElementsByTagName("tr");
+        
+            for (let i = 0; i < rows.length; i++) {
+                let nameCell = rows[i].getElementsByTagName("td")[0]; // First column (Name)
+                if (nameCell) {
+                    let nameValue = nameCell.textContent || nameCell.innerText;
+                    rows[i].style.display = nameValue.toLowerCase().includes(input) ? "" : "none";
+                }
+            }
+        }
         function fetchEmployees() {
             onValue(employeesRef, (snapshot) => {
                 const employeeList = document.getElementById("employee-list");
@@ -101,4 +113,5 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
             fetchEmployees();
             M.Modal.init(document.querySelectorAll(".modal"));
             document.getElementById("addnewuser").addEventListener("click", addEmployee);
+            document.getElementById("searchInput").addEventListener("change",searchTable)
         });
